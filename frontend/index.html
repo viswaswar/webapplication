@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Simple Frontend</title>
+</head>
+<body>
+  <h1>Frontend-Backend Demo</h1>
+  <input type="text" id="messageInput" placeholder="Type a message">
+  <button onclick="sendMessage()">Send</button>
+  <p id="response"></p>
+
+  <script>
+    async function sendMessage() {
+      const message = document.getElementById("messageInput").value;
+      const response = await fetch("http://localhost:3000/api/message", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: message })
+      });
+      const data = await response.json();
+      document.getElementById("response").innerText = "Server says: " + data.reply;
+    }
+  </script>
+</body>
+</html>
